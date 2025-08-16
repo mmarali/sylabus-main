@@ -22,62 +22,105 @@ const submit = () => {
 };
 </script>
 
-<template>
-    <AuthBase title="Create an account" description="Enter your details below to create your account">
-        <Head title="Register" />
 
-        <form method="POST" @submit.prevent="submit" class="flex flex-col gap-6">
-            <div class="grid gap-6">
+<template>
+    <Head title="Rejestracja" />
+
+    <div class="min-h-screen flex items-center justify-center relative bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900">
+        <div class="absolute inset-0 bg-[url('/images/stars-bg.png')] bg-cover opacity-20"></div>
+
+
+        <div class="relative z-10 w-full max-w-md bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl p-8 border border-white/20">
+            <h1 class="text-3xl font-bold font-cinzel text-center text-white mb-2">
+                Zarejestruj się
+            </h1>
+            <p class="text-center text-gray-300 text-sm mb-6">
+                Wprowadź swoje dane, aby utworzyć konto
+            </p>
+
+            <form method="POST" @submit.prevent="submit" class="flex flex-col gap-6">
+                <!-- Name -->
                 <div class="grid gap-2">
-                    <Label for="name">Name</Label>
-                    <Input id="name" type="text" required autofocus :tabindex="1" autocomplete="name" v-model="form.name" placeholder="Full name" />
+                    <Label for="name" class="text-white">Imię i nazwisko</Label>
+                    <Input
+                        id="name"
+                        type="text"
+                        required
+                        autofocus
+                        autocomplete="name"
+                        v-model="form.name"
+                        placeholder="Jan Kowalski"
+                        class="bg-white/70 border-white/30 text-white placeholder-gray-300"
+                    />
                     <InputError :message="form.errors.name" />
                 </div>
 
+                <!-- Email -->
                 <div class="grid gap-2">
-                    <Label for="email">Email address</Label>
-                    <Input id="email" type="email" required :tabindex="2" autocomplete="email" v-model="form.email" placeholder="email@example.com" />
+                    <Label for="email" class="text-white">Adres Email</Label>
+                    <Input
+                        id="email"
+                        type="email"
+                        required
+                        autocomplete="email"
+                        v-model="form.email"
+                        placeholder="email@example.com"
+                        class="bg-white/70 border-white/30 text-white placeholder-gray-70"
+                    />
                     <InputError :message="form.errors.email" />
                 </div>
 
+                <!-- Password -->
                 <div class="grid gap-2">
-                    <Label for="password">Password</Label>
+                    <Label for="password" class="text-white">Hasło</Label>
                     <Input
                         id="password"
                         type="password"
                         required
-                        :tabindex="3"
                         autocomplete="new-password"
                         v-model="form.password"
-                        placeholder="Password"
+                        placeholder="Hasło"
+                        class="bg-white/70 border-white/30 text-white placeholder-gray-300"
                     />
                     <InputError :message="form.errors.password" />
                 </div>
 
+                <!-- Confirm Password -->
                 <div class="grid gap-2">
-                    <Label for="password_confirmation">Confirm password</Label>
+                    <Label for="password_confirmation" class="text-white">Potwierdź hasło</Label>
                     <Input
                         id="password_confirmation"
                         type="password"
                         required
-                        :tabindex="4"
                         autocomplete="new-password"
                         v-model="form.password_confirmation"
-                        placeholder="Confirm password"
+                        placeholder="Powtórz hasło"
+                        class="bg-white/70 border-white/30 text-white placeholder-gray-300"
                     />
                     <InputError :message="form.errors.password_confirmation" />
                 </div>
 
-                <Button type="submit" class="mt-2 w-full" tabindex="5" :disabled="form.processing">
+                <!-- Button -->
+                <Button
+                    type="submit"
+                    class="mt-4 w-full px-6 py-3 rounded-full text-white font-semibold font-cinzel
+                 bg-gradient-to-r from-indigo-500 to-indigo-700 shadow-lg
+                 hover:from-indigo-600 hover:to-indigo-800 hover:shadow-xl
+                 transition duration-300 ease-in-out transform hover:-translate-y-0.5 hover:scale-105"
+                    :disabled="form.processing"
+                >
                     <LoaderCircle v-if="form.processing" class="h-4 w-4 animate-spin" />
-                    Create account
+                    <span v-else>Zarejestruj się</span>
                 </Button>
-            </div>
+            </form>
 
-            <div class="text-center text-sm text-muted-foreground">
-                Already have an account?
-                <TextLink :href="route('login')" class="underline underline-offset-4" :tabindex="6">Log in</TextLink>
+            <!-- Link do logowania -->
+            <div class="text-center text-sm text-gray-300 mt-6">
+                Masz już konto?
+                <TextLink :href="route('login')" class="underline text-blue-300 hover:text-blue-400 transition">
+                    Zaloguj się
+                </TextLink>
             </div>
-        </form>
-    </AuthBase>
+        </div>
+    </div>
 </template>
